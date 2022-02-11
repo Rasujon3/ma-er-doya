@@ -1,5 +1,5 @@
 // function
-function inputAdd(dValue, dOutput, bOutput) {
+/* function inputAdd(dValue, dOutput, bOutput) {
   let inputValueText = document.getElementById(dValue);
   let outputText = document.getElementById(dOutput);
   let totalBalance = document.getElementById(bOutput);
@@ -27,41 +27,50 @@ function inputAdd(dValue, dOutput, bOutput) {
 
   // clear input
   inputValueText.value = "";
+} */
+
+// deposit
+let depositValue = document.getElementById("deposit-value");
+let depositOutput = document.getElementById("deposit-output");
+
+// withdraw
+let withdrawValue = document.getElementById("withdraw-value");
+let withdrawOutput = document.getElementById("withdraw-output");
+
+// total balance
+let balanceOutput = document.getElementById("balance-output");
+
+function addMoney(currentAmount, newAmount) {
+  return Number(currentAmount) + Number(newAmount);
+}
+function getMoney(currentAmount, newAmount) {
+  return Number(currentAmount) - Number(newAmount);
 }
 
 // deposit
 function deposit() {
-  /* let depositValue = document.getElementById("deposit-value");
-  let depositOutput = document.getElementById("deposit-output");
-  let balanceOutput = document.getElementById("balance-output");
+  const totalDeposit = addMoney(depositOutput.innerText, depositValue.value);
+  depositOutput.innerText = totalDeposit;
 
-  depositOutput.innerText =
-    Number(depositOutput.innerText) + Number(depositValue.value);
+  const totalBalance = addMoney(balanceOutput.innerText, depositValue.value);
+  balanceOutput.innerText = totalBalance;
 
-  balanceOutput.innerText =
-    Number(balanceOutput.innerText) + Number(depositValue.value);
-
-  // clear input
-  depositValue.value = ""; */
-  inputAdd("deposit-value", "deposit-output", "balance-output");
+  depositValue.value = "";
 }
 
 // withdraw
 function withdraw() {
-  // let withdrawValue = document.getElementById("withdraw-value");
-  // let withdrawOutput = document.getElementById("withdraw-output");
-  // let balanceOutput = document.getElementById("balance-output");
+  if (Number(balanceOutput.innerText) >= Number(withdrawOutput.innerText)) {
+    const totalWithdraw = addMoney(
+      withdrawOutput.innerText,
+      withdrawValue.value
+    );
+    withdrawOutput.innerText = totalWithdraw;
+    const totalBalance = getMoney(balanceOutput.innerText, withdrawValue.value);
+    balanceOutput.innerText = totalBalance;
+  } else {
+    alert("Unsufficient Balance");
+  }
 
-  // if (Number(balanceOutput.innerText) > Number(withdrawOutput.innerText)) {
-  //   withdrawOutput.innerText =
-  //     Number(withdrawOutput.innerText) + Number(withdrawValue.value);
-  //   balanceOutput.innerText =
-  //     Number(balanceOutput.innerText) - Number(withdrawValue.value);
-  // } else {
-  //   alert("Unsufficient Balance");
-  // }
-
-  // // clear input
-  // withdrawValue.value = "";
-  inputAdd("withdraw-value", "withdraw-output", "balance-output");
+  withdrawValue.value = "";
 }
